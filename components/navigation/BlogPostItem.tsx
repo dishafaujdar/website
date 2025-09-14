@@ -1,7 +1,7 @@
 import moment from 'moment';
 import Link from 'next/link';
 import type { Ref } from 'react';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import TextTruncate from 'react-text-truncate';
 
 import { BlogPostType } from '@/types/components/navigation/BlogPostType';
@@ -28,11 +28,14 @@ interface BlogPostItemProps {
 
 /**
  * Functional component representing a single blog post item.
+ *
+ * @param {BlogPostItemProps} props - The props for the BlogPostItem component.
+ * @param {IBlogPost} props.post - The blog post data.
+ * @param {string} [props.className] - The additional CSS classes for styling.
+ * @param {string} [props.id] - The HTML id attribute for the component.
+ * @param {Ref<HTMLLIElement>} ref - The reference object for the component.
  */
-export default forwardRef(function BlogPostItem(
-  { post, className = '', id = '' }: BlogPostItemProps,
-  ref: Ref<HTMLLIElement> /** Reference object for the component. */
-) {
+const BlogPostItem = ({ post, className = '', id = '' }: BlogPostItemProps, ref: Ref<HTMLLIElement>) => {
   let typeColors: [string, string] = ['bg-indigo-100', 'text-indigo-800'];
 
   switch (post.type.toLowerCase()) {
@@ -57,10 +60,17 @@ export default forwardRef(function BlogPostItem(
         <Link href={post.slug}>
           <span
             className={
-              'flex h-full cursor-pointer flex-col divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 shadow-md transition-all duration-300 ease-in-out hover:shadow-lg'
+              'relative flex h-full cursor-pointer flex-col divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 shadow-md transition-all duration-300 ease-in-out hover:shadow-lg'
             }
             data-testid='BlogPostItem-Link'
           >
+            {post.featured && (
+              <div className='absolute right-0 top-0 z-10 m-4'>
+                <span className='inline-flex items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
+                  Featured
+                </span>
+              </div>
+            )}
             <img
               className='h-48 w-full object-cover'
               src={post.cover}
@@ -77,16 +87,14 @@ export default forwardRef(function BlogPostItem(
                     {post.type}
                   </span>
                 </Paragraph>
-                <Link href={post.slug}>
-                  <span className='block'>
-                    <Heading level={HeadingLevel.h5} typeStyle={HeadingTypeStyle.smSemibold} className='mt-2'>
-                      {post.title}
-                    </Heading>
-                    <Paragraph typeStyle={ParagraphTypeStyle.sm} className='mt-3'>
-                      <TextTruncate element='span' line={4} text={post.excerpt} />
-                    </Paragraph>
-                  </span>
-                </Link>
+                <span className='block'>
+                  <Heading level={HeadingLevel.h5} typeStyle={HeadingTypeStyle.smSemibold} className='mt-2'>
+                    {post.title}
+                  </Heading>
+                  <Paragraph typeStyle={ParagraphTypeStyle.sm} className='mt-3'>
+                    <TextTruncate element='span' line={4} text={post.excerpt} />
+                  </Paragraph>
+                </span>
               </div>
               <div className='mt-6 flex items-center'>
                 <div className='relative shrink-0'>
@@ -94,30 +102,29 @@ export default forwardRef(function BlogPostItem(
                 </div>
                 <div className='ml-3'>
                   <Heading level={HeadingLevel.h3} typeStyle={HeadingTypeStyle.xsSemibold} textColor='text-gray-900'>
-                    <span className='hover:underline'>
+                    <span>
                       {post.authors
                         .map((author, index) =>
                           author.link ? (
-                            <a
+                            <button
                               key={index}
                               data-alt={author.name}
-                              href={author.link}
+                              className='cursor-pointer border-none bg-inherit p-0 hover:underline'
                               onClick={(e) => {
-                                e.stopPropagation();
+                                e.preventDefault();
+                                window.open(author.link, '_blank');
                               }}
-                              target='_blank'
-                              rel='noreferrer'
                             >
                               {author.name}
-                            </a>
+                            </button>
                           ) : (
                             author.name
                           )
                         )
-                        .reduce((prev, curr) => (
-                          <>
+                        .reduce((prev, curr, index) => (
+                          <React.Fragment key={`author-${index}`}>
                             {prev} & {curr}
-                          </>
+                          </React.Fragment>
                         ))}
                     </span>
                   </Heading>
@@ -134,4 +141,6 @@ export default forwardRef(function BlogPostItem(
       </article>
     </li>
   );
-});
+};
+
+export default forwardRef(BlogPostItem);

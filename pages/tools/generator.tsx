@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { HeadingLevel, HeadingTypeStyle } from '@/types/typography/Heading';
 import { ParagraphTypeStyle } from '@/types/typography/Paragraph';
 
@@ -14,26 +16,15 @@ import Paragraph from '../../components/typography/Paragraph';
 /**
  * @description Render the buttons for the Generator page.
  */
-function renderButtons(): JSX.Element {
+function renderButtons(): React.JSX.Element {
   return (
-    <div className='mt-8'>
-      {/* <Button
-        text="Learn more"
-        href="/docs/tools/generator"
-        iconPosition="left"
-        icon={<IconRocket className="inline-block w-6 h-6 -mt-1" />}
-        className="w-full mb-2 sm:w-auto sm:mb-0 sm:mr-2"
-      /> */}
+    <div className='mt-8 flex flex-col gap-4 md:flex-row md:flex-wrap md:justify-center lg:justify-start'>
       <GithubButton
         text='View on Github'
-        className='w-full sm:w-auto'
+        className='w-full text-center md:w-auto md:text-left'
         href='https://www.github.com/asyncapi/generator'
       />
-      <Button
-        text='View Docs'
-        href='/docs/tools/generator'
-        className='ml-2 mt-2 block w-full sm:w-auto md:mt-0 md:inline-block'
-      />
+      <Button text='View Docs' href='/docs/tools/generator' className='w-full text-center md:w-auto md:text-left' />
     </div>
   );
 }
@@ -44,6 +35,7 @@ function renderButtons(): JSX.Element {
 export default function GeneratorPage() {
   const description = 'Generate documentation, code, and more out of your AsyncAPI files with the Generator.';
   const image = '/img/social/generator-card.jpg';
+  const generatorimage = '/img/diagrams/generator.webp';
 
   return (
     <GenericLayout title='Generator' description={description} image={image} wide>
@@ -54,6 +46,7 @@ export default function GeneratorPage() {
               Docs, Code, Anything!
             </Heading>
             <Paragraph className='mt-4'>{description}</Paragraph>
+            <img src={generatorimage} alt='generator diagram' className=' mx-auto h-auto object-cover lg:w-1/2' />
           </div>
 
           <div className='relative mt-12 lg:mt-20 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8'>

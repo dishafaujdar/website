@@ -1,6 +1,6 @@
 ---
 title: 'Installation guide'
-weight: 30
+weight: 20
 ---
 
 ## Node and npm
@@ -21,10 +21,30 @@ npm --version
 
 If you don’t have Node.js or NPM installed, you can install both with this [Node.js package manager](https://nodejs.org/en/download/package-manager/).
 
-After installing Node.js and NPM, run the following command to install the AsyncAPI CLI globally:
+After installing Node.js and NPM, run the following command to install the AsyncAPI ClI globally:
 ```sh
 npm install -g @asyncapi/cli
 ```
+To enable the autocomplete feature in the CLI for the shells **bash and zshrc**, there is a script that will run automatically and autocomplete is only support for **bash and zshrc** for the **powershell** refer to manually enabling  [autocomplete](https://www.asyncapi.com/docs/tools/cli/autocompleteEnabled) guide in ClI:
+
+After the ClI installation :
+
+if the configuration is not present logs will be:
+```sh
+✅ Autocomplete configuration added to .zshrc.
+```
+If the configuration is present for autocomplete logs:
+```sh
+✅ Autocomplete is already configured. Skipping addition.
+```
+
+To refresh the variables:
+
+```sh
+ source ~/.bashrc   # For bash
+ source ~/.zshrc    # For zsh
+```
+
 ## Docker
 
 Install [Docker](https://docs.docker.com/get-docker/) first, then use docker to build the image using the following command :
@@ -142,7 +162,27 @@ curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with th
 ```
 
 ### Other distros
-You can install the AsyncAPI CLI for other Linux distros using the archive `tar.gz` file. To download the latest release of the CLI, run this command in your terminal:
+You can install the AsyncAPI CLI for other Linux distros using the archive `tar.gz` file. 
+
+#### For Alpine Linux / musl-based systems:
+To download the latest Alpine-compatible release, run this command in your terminal:
+```sh
+curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi-alpine.tar.gz
+```
+
+To download a specific Alpine-compatible release, run this command in your terminal:
+```sh
+curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi-alpine.tar.gz
+```
+
+Once downloaded, untar the file:
+```sh
+tar -xzf asyncapi-alpine.tar.gz
+```
+
+#### For other Linux distributions (glibc-based):
+
+To download the latest release of the CLI, run this command in your terminal:
 ```sh
 curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.tar.gz
 ```
@@ -156,6 +196,8 @@ Once you have downloaded the archived file, untar it by running this command in 
 ```sh
 tar -xzf asyncapi.tar.gz
 ```
+
+### Setting up the symlink (for both Alpine and glibc versions):
 
 The step above will create an `AsyncAPI` directory in the current path. To run the CLI from anywhere, you must create a `symlink`. If the current path you are on is `/user/local/bin`, for example, you must create the `symlink` in the `/user/local/bin` directory by following these steps:
 ```sh
@@ -171,3 +213,5 @@ ln -s <absolute-path>/bin/asyncapi /user/local/bin/asyncapi
 # The "asyncapi" command should be available to be used
 asyncapi
 ```
+> [!NOTE]
+> If youare using Alpine Linux or any musl-based distribution, make sure to download the `-alpine.tar.gz` version to avoid glibc compatibility issues. The regular `asyncapi.tar.gz` file is compiled for glibc-based systems and will not work on Alpine.

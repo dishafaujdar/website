@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { Language, Technology, VisibleDataListType } from '@/types/components/tools/ToolDataType';
@@ -72,7 +72,8 @@ export default function Filters({ setOpenFilter }: FiltersProps) {
 
     const searchParams = new URLSearchParams();
 
-    // Set the params key only when the default value of the key changes. This is to know when the user actually applies filter(s).
+    // Set the params key only when the default value of the key changes.
+    // This is to know when the user actually applies filter(s).
 
     if (checkPaid !== 'all') {
       searchParams.set('pricing', checkPaid);

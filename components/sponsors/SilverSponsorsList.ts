@@ -4,7 +4,7 @@ export const Silversponsors: SponsorType[] = [
   {
     name: 'Bump.sh',
     website: 'https://bump.sh/asyncapi?utm_source=asyncapi&utm_medium=referral&utm_campaign=sponsor',
-    altText: 'Bump',
+    altText: 'OpenAPI & AsyncAPI API docs - Bump.sh',
     imageSrc: '/img/sponsors/bumpsh.svg',
     imageClass: 'inline-block sm:h-9'
   },
@@ -13,13 +13,6 @@ export const Silversponsors: SponsorType[] = [
     website: 'https://www.svix.com/',
     altText: 'Svix',
     imageSrc: '/img/sponsors/svix_logo.svg',
-    imageClass: 'inline-block sm:h-9'
-  },
-  {
-    name: 'HiveMQ',
-    website: 'https://www.hivemq.com/',
-    altText: 'HiveMQ',
-    imageSrc: '/img/sponsors/hivemq_logo.png',
     imageClass: 'inline-block sm:h-9'
   },
   {
@@ -34,13 +27,6 @@ export const Silversponsors: SponsorType[] = [
     website: 'https://smartbear.com',
     altText: 'SmartBear',
     imageSrc: '/img/sponsors/smartbear_logo.png',
-    imageClass: 'inline-block sm:h-9'
-  },
-  {
-    name: 'HDI',
-    website: 'https://www.hdi.global/',
-    altText: 'HDI',
-    imageSrc: '/img/sponsors/hdi_logo.png',
     imageClass: 'inline-block sm:h-9'
   },
   {

@@ -4,6 +4,21 @@ weight: 75
 ---
 
 Reference API documentation for AsyncAPI Generator library.
+## Classes
+
+<dl>
+<dt><a href="#Generator">Generator</a></dt>
+<dd></dd>
+</dl>
+
+## Members
+
+<dl>
+<dt><a href="#listBakedInTemplates">listBakedInTemplates</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>List core templates, optionally filter by type, stack, protocol, or target.
+Use name of returned templates as input for the <code>generate</code> method for template generation. Such core templates code is part of the @asyncapi/generator package.</p></dd>
+</dl>
+
 
 <a name="Generator"></a>
 
@@ -13,6 +28,7 @@ Reference API documentation for AsyncAPI Generator library.
 * [Generator](#Generator)
     * [new Generator(templateName, targetDir, options)](#new_Generator_new)
     * _instance_
+        * [.compile](#Generator+compile) : `Boolean`
         * [.registry](#Generator+registry) : `Object`
         * [.templateName](#Generator+templateName) : `String`
         * [.targetDir](#Generator+targetDir) : `String`
@@ -38,9 +54,9 @@ Reference API documentation for AsyncAPI Generator library.
         * [.executeAfterHook()](#Generator+executeAfterHook) ⇒ `Promise.<void>`
         * [.parseInput()](#Generator+parseInput)
         * [.configureTemplate()](#Generator+configureTemplate)
-        * ~~[.generateFromString(asyncapiString, [parseOptions])](#Generator+generateFromString) ⇒ `Promise`~~
-        * [.generateFromURL(asyncapiURL)](#Generator+generateFromURL) ⇒ `Promise`
-        * [.generateFromFile(asyncapiFile)](#Generator+generateFromFile) ⇒ `Promise`
+        * ~~[.generateFromString(asyncapiString, [parseOptions])](#Generator+generateFromString) ⇒ `Promise.<(TemplateRenderResult|undefined)>`~~
+        * [.generateFromURL(asyncapiURL)](#Generator+generateFromURL) ⇒ `Promise.<(TemplateRenderResult|undefined)>`
+        * [.generateFromFile(asyncapiFile)](#Generator+generateFromFile) ⇒ `Promise.<(TemplateRenderResult|undefined)>`
         * [.installTemplate([force])](#Generator+installTemplate)
     * _static_
         * [.getTemplateFile(templateName, filePath, [templatesDir])](#Generator.getTemplateFile) ⇒ `Promise`
@@ -64,6 +80,7 @@ Instantiates a new Generator object.
     - [.forceWrite] `Boolean` ` = false` - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.
     - [.install] `Boolean` ` = false` - Install the template and its dependencies, even when the template has already been installed.
     - [.debug] `Boolean` ` = false` - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.
+    - [.compile] `Boolean` ` = true` - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder
     - [.mapBaseUrlToFolder] `Object.<String, String>` - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .
     - [.registry] `Object` - Optional parameter with private registry configuration
         - [.url] `String` - Parameter to pass npm registry url
@@ -84,6 +101,13 @@ const generator = new Generator('@asyncapi/html-template', path.resolve(__dirnam
   }
 });
 ```
+
+<a name="Generator+compile"></a>
+
+* generator.compile : `Boolean`** :
+Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder.
+
+**Kind**: instance property of [`Generator`](#Generator)  
 
 <a name="Generator+registry"></a>
 
@@ -485,3 +509,20 @@ const content = await Generator.getTemplateFile('@asyncapi/html-template', 'part
 const Generator = require('@asyncapi/generator');
 const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');
 ```
+
+<a name="listBakedInTemplates"></a>
+
+## listBakedInTemplates
+List core templates, optionally filter by type, stack, protocol, or target.
+Use name of returned templates as input for the `generate` method for template generation. Such core templates code is part of the @asyncapi/generator package.
+
+**Kind**: global variable  
+**Returns**: `Array.<Object>` - Array of template objects matching the filter.  
+**Params**
+
+- [filter] `Object` - Optional filter object.
+    - [.type] `string` - Filter by template type (e.g., 'client', 'docs').
+    - [.stack] `string` - Filter by stack (e.g., 'quarkus', 'express').
+    - [.protocol] `string` - Filter by protocol (e.g., 'websocket', 'http').
+    - [.target] `string` - Filter by target language or format (e.g., 'javascript', 'html').
+

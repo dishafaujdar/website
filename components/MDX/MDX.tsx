@@ -1,7 +1,7 @@
 import { MDXProvider as CoreMDXProvider } from '@mdx-js/react';
 import mermaid from 'mermaid';
 import Link from 'next/link';
-import { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TwitterDMButton,
   TwitterFollowButton,
@@ -37,7 +37,7 @@ import Row from '../layout/Row';
 import NewsletterSubscribe from '../NewsletterSubscribe';
 import Profiles from '../Profiles';
 import Remember from '../Remember';
-import Sponsors from '../sponsors/Sponsors';
+import Sponsors from '../sponsors/PlatinumSponsors';
 import Warning from '../Warning';
 import { Table, TableBody, TableCell, TableHeader, TableRow, Thead } from './MDXTable';
 
@@ -97,7 +97,7 @@ function MermaidDiagram({ graph }: MermaidDiagramProps) {
   /**
    * @description Renders the Mermaid diagram.
    */
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!graph) {
       return;
     }
@@ -279,12 +279,13 @@ const getMDXComponents = {
     />
   ),
   hr: (props: React.HTMLProps<HTMLHRElement>) => <hr {...props} className={`${props.className || ''} my-8`} />,
-  Link: (props: React.HTMLProps<HTMLHRElement>) => (
+  Link: ({ href = '/', children, ...props }: React.HTMLProps<HTMLAnchorElement>) => (
     <Link
-      href={props.href || '/'}
+      href={href as string}
       className='border-b border-secondary-400 font-body font-semibold text-gray-900 antialiased transition duration-300 ease-in-out hover:border-secondary-500'
+      {...props}
     >
-      {props.children}
+      {children}
     </Link>
   ),
   Tr: TableRow,

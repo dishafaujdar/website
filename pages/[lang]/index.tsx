@@ -21,8 +21,8 @@ import NewsletterSubscribe from '../../components/NewsletterSubscribe';
 import NewsroomSection from '../../components/newsroom/NewsroomSection';
 import Slack from '../../components/slack';
 import GoldSponsors from '../../components/sponsors/GoldSponsors';
+import PlatinumSponsors from '../../components/sponsors/PlatinumSponsors';
 import SilverSponsors from '../../components/sponsors/SilverSponsors';
-import Sponsors from '../../components/sponsors/Sponsors';
 import SupportUs from '../../components/SupportUs/SupportUs';
 import Testimonial from '../../components/Testimonial';
 import Heading from '../../components/typography/Heading';
@@ -108,7 +108,7 @@ export default function HomePage() {
 
               <div className='mt-12 lg:flex lg:flex-row-reverse'>
                 <section className='mt-10 lg:mt-0 lg:flex-1'>
-                  <Calendar size={2} className='float-left' />
+                  <Calendar size={2} />
                 </section>
                 <section className='lg:mr-12 lg:max-w-xl lg:text-left'>
                   <div className='mt-5 lg:mr-12'>
@@ -149,7 +149,7 @@ export default function HomePage() {
             <Heading level={HeadingLevel.h3} typeStyle={HeadingTypeStyle.lg} className='mb-4'>
               {t('sponsors.platinumTitle')}
             </Heading>
-            <Sponsors className='mt-4' showSupportBanner={false} />
+            <PlatinumSponsors className='mt-4' showSupportBanner={false} />
           </Container>
 
           <Container className='pb-6 text-center' wide as='section'>

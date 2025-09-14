@@ -1,3 +1,4 @@
+import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface FiltersDisplayProps {
@@ -29,7 +30,7 @@ export default function FiltersDisplay({ checkedOptions = [], setCheckedOptions 
   };
 
   return (
-    <>
+    <div>
       {checkedOptions.length > 0 && (
         <div className='flex max-w-lg flex-wrap gap-2 p-2 delay-150 duration-200' data-testid='FiltersDisplay-main'>
           {checkedOptions.map((items, index) => {
@@ -53,6 +54,6 @@ export default function FiltersDisplay({ checkedOptions = [], setCheckedOptions 
           })}
         </div>
       )}
-    </>
+    </div>
   );
 }

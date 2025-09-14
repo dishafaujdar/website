@@ -2,12 +2,13 @@ import moment from 'moment';
 import ErrorPage from 'next/error';
 import HtmlHead from 'next/head';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 import type { IPosts } from '@/types/post';
 
 import BlogContext from '../../context/BlogContext';
 import AuthorAvatars from '../AuthorAvatars';
-// import AnnouncementHero from '../campaigns/AnnoucementHero';
+import AnnouncementHero from '../campaigns/AnnouncementHero';
 import Head from '../Head';
 import TOC from '../TOC';
 import Container from './Container';
@@ -23,12 +24,7 @@ interface IBlogLayoutProps {
  * @param {IPosts['blog'][number]} props.post - The post
  * @param {React.ReactNode} props.children - The children
  */
-export default function BlogLayout({
-  post,
-  children,
-  // eslint-disable-next-line unused-imports/no-unused-vars, no-unused-vars
-  navItems
-}: IBlogLayoutProps) {
+export default function BlogLayout({ post, children }: IBlogLayoutProps) {
   const router = useRouter();
 
   if (!post) return <ErrorPage statusCode={404} />;
@@ -40,8 +36,7 @@ export default function BlogLayout({
 
   return (
     <BlogContext.Provider value={{ post }}>
-      {/* @TODO Will uncomment the component once it is in use */}
-      {/* <AnnouncementHero className='mx-8 my-4' /> */}
+      <AnnouncementHero className='mx-8 my-4' />
       <Container cssBreakingPoint='lg' flex flexReverse>
         <TOC
           toc={post.toc}

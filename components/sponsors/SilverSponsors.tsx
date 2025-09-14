@@ -1,4 +1,7 @@
+import React from 'react';
+
 import { Silversponsors } from './SilverSponsorsList';
+import SponsorImage from './SponsorImage';
 
 interface SilverSponsorsProps {
   className: string;
@@ -24,10 +27,10 @@ export default function SilverSponsors({ className = '' }: SilverSponsorsProps):
             rel='noopener noreferrer'
             data-testid='SilverSponsors-link'
           >
-            <img
-              className={sponsor.imageClass}
+            <SponsorImage
               src={sponsor.imageSrc}
               alt={sponsor.altText}
+              className={sponsor.imageClass}
               data-testid='SilverSponsors-img'
             />
           </a>
